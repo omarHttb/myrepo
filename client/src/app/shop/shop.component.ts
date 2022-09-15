@@ -10,8 +10,8 @@ import { ShopService } from './shop.service';
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.scss']
 })
-export class ShopComponent implements OnInit {
-  @ViewChild('search',{static:true}) searchTerm: ElementRef;
+export class ShopComponent implements OnInit{
+  @ViewChild('search',{static: false}) searchTerm: ElementRef;
   products: IProduct[];
   brands : IBrand[];
   types : IType [];
@@ -60,11 +60,6 @@ export class ShopComponent implements OnInit {
     }, error => {
       console.log(error);
     });
-  
-
-
-
-    
   }
 
   onBrandSelected (brandId: number) {
