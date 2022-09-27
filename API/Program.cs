@@ -1,4 +1,7 @@
+using core.Entites.Identity;
 using Infrastructure.data;
+using Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace API
@@ -17,6 +20,12 @@ namespace API
                      var context = Services.GetRequiredService<StoreContext>();
                      await context.Database.MigrateAsync();
                      await StoreContextSeed.SeedAsync(context, loggerFactory);
+
+                     var userManager = Services.GetRequiredService<UserManager<AppUser>>();
+                     var IdentityContext = Services.GetRequiredService<AppIdentityDbContext>();
+                     await IdentityContext.Database.MigrateAsync();
+                     await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
+
                 }
                 catch (Exception ex )
                 {
